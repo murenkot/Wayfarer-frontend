@@ -48,7 +48,7 @@ class Navbar extends React.Component {
       <nav className="navbar navbar-expand-md navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
         <div className="logo-container">
-          <img src={logo} />
+          <img src={logo} alt="logo" />
         </div>
         <span>Wayfarer</span>
         </Link>

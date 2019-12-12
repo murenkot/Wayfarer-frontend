@@ -8,35 +8,21 @@ class EditPostDetails extends Component {
     title: '',
     content: '',
     photo: '',
+    city: "", // ID #
     cities: [],
-    city: "",
   };
-
-
-  componentDidMount() {
-    this.setState({
-      city: this.props.post.city,
-      title: this.props.post.title,
-      content: this.props.post.content,
-      photo: this.props.post.photo,
-    })
-  }
 
   handleCitySelect = (e) => {
     this.setState({
       city: e.target.value,
-    })
-  }
-
+    });
+  };
 
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
-    })
-
-  }
-
-
+    });
+  };
 
   saveChanges = (event) => {
     event.preventDefault();
@@ -46,19 +32,26 @@ class EditPostDetails extends Component {
       title: this.state.title,
       content: this.state.content,
       photo: this.state.photo,
-    }
+    };
+    console.log(postId);
     axios.put(`${process.env.REACT_APP_API_URL}/posts/${postId}`, body, {
       withCredentials: true,
     })
       .then((res) => {
+        console.log(res)
         this.props.handleEditPostFormOpen();
       })
       .catch((err)=>console.log(err));
-  }
-
+  };
 
   componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_URL}/cities/all`)
+    this.setState({
+      city: this.props.post.city._id,
+      title: this.props.post.title,
+      content: this.props.post.content,
+      photo: this.props.post.photo,
+    });
+    axios.get(`${process.env.REACT_APP_API_URL}/cities`)
       .then((res) => {
         const cities = res.data.data.map(city => {
           return {
@@ -75,7 +68,7 @@ class EditPostDetails extends Component {
         });
       })
       .catch((error) => console.log(error));
-  }
+  };
 
   render () {
     return (
@@ -87,7 +80,7 @@ class EditPostDetails extends Component {
           <form onSubmit={this.saveChanges} >
             <div className="form-group">
               <label htmlFor="city">City</label>
-              <select className="form-control form-control-lg" name="city" onChange={this.handleCitySelect} value={this.state.selectedCity}>
+              <select className="form-control form-control-lg" name="city" onChange={this.handleCitySelect} value={this.state.city}>
                 {this.state.cities.map((city) => <option key={city.value} value={city.value}>{city.display}</option>)}
               </select>
             </div>
@@ -107,8 +100,8 @@ class EditPostDetails extends Component {
           </form>
         </Modal.Body>
       </Modal>
-    )
-  }
-}
+    );
+  };
+};
 
 export default EditPostDetails;

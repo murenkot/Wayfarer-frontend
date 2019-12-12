@@ -3,7 +3,6 @@ import axios from 'axios';
 import CityList from '../../components/CityList/CityList';
 import CityView from '../../components/CityView/CityView';
 import PostPreview from '../../components/PostPreview/PostPreview';
-import './CitiesContainer.css';
 
 class CitiesContainer extends Component {
 
@@ -15,8 +14,10 @@ class CitiesContainer extends Component {
     }
 
     componentDidMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/cities/all`).then((res)=>{
-            this.setState({cityList: res.data.data})
+        axios.get(`${process.env.REACT_APP_API_URL}/cities`).then((res)=>{
+            this.setState({
+                cityList: res.data.data
+            })
             this.getArticleList()
         }).catch((err)=>console.log(err));
     }
@@ -74,7 +75,13 @@ class CitiesContainer extends Component {
                         {this.state.cityList && <CityList cityList={this.state.cityList} handleSelect={this.handleSelect} getArticleList={this.getArticleList}/>}
                     </div>
                     <div className="col-md-8">
-                        <CityView selectedCity={this.state.selectedCity} cityList={this.state.cityList} articleList={this.state.articleList} refreshPage={this.refreshPage} selectedCityObject={this.state.selectedCityObject}/>
+                        <CityView 
+                            selectedCity={this.state.selectedCity} 
+                            cityList={this.state.cityList} 
+                            articleList={this.state.articleList} 
+                            refreshPage={this.refreshPage} 
+                            selectedCityObject={this.state.selectedCityObject}
+                        />
                         {this.state.articleList && this.state.articleList.map((article, index) => 
                             <PostPreview article={article} index={index} />
                         )}

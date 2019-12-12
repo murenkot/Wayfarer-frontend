@@ -11,7 +11,7 @@ class CommentsContainer extends Component {
   };
 
   fetchAllComments = () => {
-    axios.get(`${process.env.REACT_APP_API_URL}/comments/all`, {
+    axios.get(`${process.env.REACT_APP_API_URL}/comments`, {
       withCredentials: true,
     })
     .then((res) => {
@@ -36,7 +36,8 @@ class CommentsContainer extends Component {
   };
 
   handleCommentSubmit = () => {
-    axios.post(`${process.env.REACT_APP_API_URL}/comments/new`, this.state,  {
+    // instead of another axios post you can also just setstate to push new comment into state
+    axios.post(`${process.env.REACT_APP_API_URL}/comments`, this.state,  {
       withCredentials: true,
     })
     .then((res) => {

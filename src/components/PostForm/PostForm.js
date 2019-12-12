@@ -69,7 +69,7 @@ class PostForm extends Component {
 
 
   componentDidMount() {
-    axios.get(`${process.env.REACT_APP_API_URL}/cities/all`)
+    axios.get(`${process.env.REACT_APP_API_URL}/cities`)
     .then((res) => {
       const cities = res.data.data.map(city => {
         return {

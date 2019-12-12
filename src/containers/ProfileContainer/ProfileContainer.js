@@ -18,7 +18,7 @@ class ProfileContainer extends Component {
 
   componentDidMount() {
     const userId = localStorage.getItem('uid');
-    axios.get(`${process.env.REACT_APP_API_URL}/users/findById/${userId}`, {
+    axios.get(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
       withCredentials: true,
     })
       .then(res => {
@@ -58,9 +58,20 @@ class ProfileContainer extends Component {
         <h1>Welcome, {this.state.profile.username}</h1>
         <div className="row">
           <div className="col-md-4">
-            {this.state.edit ?  
-            <EditUserInfo profile={this.state.profile} fileSelectedHandler={this.fileSelectedHandler} updateState={this.updateState} /> 
-            : <UserInfo profile={this.state.profile} fileSelectedHandler={this.fileSelectedHandler} saveChanges={this.saveChanges} editMode={this.editMode}/>}
+            {this.state.edit 
+              ?  
+                <EditUserInfo 
+                  profile={this.state.profile} 
+                  fileSelectedHandler={this.fileSelectedHandler} 
+                  updateState={this.updateState} 
+                /> 
+              : 
+                <UserInfo 
+                  profile={this.state.profile} 
+                  fileSelectedHandler={this.fileSelectedHandler} 
+                  saveChanges={this.saveChanges} 
+                  editMode={this.editMode}
+                />}
           </div>
           <div className="col-md-8">
             <PostsContainer currentUser={this.props.currentUser}/>

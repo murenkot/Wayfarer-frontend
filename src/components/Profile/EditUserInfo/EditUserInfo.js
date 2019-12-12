@@ -39,7 +39,7 @@ class EditUserInfo extends Component {
             photo: this.state.photo,
             currentCity: this.state.currentCity,
         }
-        axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}/update`, body, {
+        axios.put(`${process.env.REACT_APP_API_URL}/users/${userId}`, body, {
             withCredentials: true,
         })
             .then((res)=>{
