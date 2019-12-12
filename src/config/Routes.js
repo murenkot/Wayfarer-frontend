@@ -12,7 +12,7 @@ export default ({ currentUser, setCurrentUser }) => (
     <Switch>
       <Route exact path="/"  render={() => <Splash currentUser={currentUser} setCurrentUser={setCurrentUser}/>} />
       <div className="non-splash-routes">
-        <Route path="/users/:id" render={() => <ProfileContainer currentUser={currentUser} />} />
+        <Route exact path="/users/:id" render={() => <ProfileContainer currentUser={currentUser} />} />
         <Route path="/post/:postId" component={Post} />
         <Route exact path="/cities/:name" component={CitiesContainer} />
         <Route exact path="/cities" component={CitiesContainer} />
